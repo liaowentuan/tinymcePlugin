@@ -2,12 +2,22 @@ declare const tinymce: any;
 
 const setup = (editor, url) => {
   editor.ui.registry.addButton('test', {
-    text: 'test button',
+    // text: 'test',
+    icon: 'image',
     onAction: () => {
-      // tslint:disable-next-line:no-console
-      editor.setContent('<p>content added from test</p>');
+      editor.windowManager.openUrl({
+        title: '添加图片',
+        width: 1000,
+        height: 640,
+        url: 'http://localhost:8080/learning/tinymce',
+        onMessage: (api, data) => {
+          editor.insertContent(data.data);
+          api.close()
+        }
+      })
     }
   });
+  
 };
 
 export default () => {
